@@ -21,21 +21,18 @@ class BoardManager {
     let x = 30;
     let y = 30;
 
-    this.scene.tiles = this.scene.physics.add.staticGroup({ immovable: true });
+    this.scene.tiles = this.scene.physics.add.staticGroup({
+      key: 'block',
+      immovable: true
+    });
 
-    this.scene.tiles.enableBody = true;
+    //this.scene.tiles.enableBody = true;
     this.board.forEach(row => {
       row.forEach(tile => {
         if (tile === TILES.METAL) {
-          this.scene.tiles
-            .create(x, y, 'metal')
-            .refreshBody()
-            .setSize(50, 50, true);
+          this.scene.tiles.create(x, y, 'metal').setSize(62, 62, true);
         } else if (tile === TILES.BOX) {
-          this.scene.tiles
-            .create(x, y, 'box')
-            .refreshBody()
-            .setSize(50, 50, true);
+          this.scene.tiles.create(x, y, 'box').setSize(62, 62, true);
         } else if (tile === TILES.EMPTY) {
           // this.scene.empty.add(new Phaser.Geom.Rectangle(x, y, 64, 64));
         }
@@ -44,6 +41,8 @@ class BoardManager {
       x = 30;
       y += 64;
     });
+
+    this.scene.tiles.refresh();
   }
 
   getTileByCoordinate(x, y) {

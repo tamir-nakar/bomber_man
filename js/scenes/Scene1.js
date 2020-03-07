@@ -7,6 +7,7 @@ class Scene1 extends Phaser.Scene {
     this.load.image('bg', '../assets/images/ground_bg.png');
     this.load.image('box', '../assets/images/box.png');
     this.load.image('metal', '../assets/images/metal.png');
+    this.load.tilemapTiledJSON('map', '../assets/map/map.json');
 
     this.load.spritesheet('player', '../assets/spritesheets/john.png', {
       frameWidth: 62,
@@ -22,10 +23,10 @@ class Scene1 extends Phaser.Scene {
     this.scene.start('playGame');
 
     this.anims.create({
-      key: 'player_anim',
+      key: 'player_walk',
       frames: this.anims.generateFrameNumbers('player'),
       frameRate: 5,
-      repeat: -1
+      repeat: 1
     });
 
     this.anims.create({
