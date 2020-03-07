@@ -18,6 +18,15 @@ class Scene1 extends Phaser.Scene {
       frameWidth: 32,
       frameHeight: 32
     });
+
+    this.load.spritesheet('explosion', '../assets/spritesheets/explosion_1.png', {
+      frameWidth: 256,
+      frameHeight: 256
+    });
+    this.load.spritesheet('explosion2', '../assets/spritesheets/explosion_4.png', {
+      frameWidth: 256,
+      frameHeight: 256
+    });
   }
   create() {
     this.scene.start('playGame');
@@ -32,7 +41,23 @@ class Scene1 extends Phaser.Scene {
     this.anims.create({
       key: 'bomb_anim',
       frames: this.anims.generateFrameNumbers('bomb'),
-      frameRate: 3,
+      frameRate: 6,
+      repeat: 0,
+      hideOnComplete: true
+    });
+
+    this.anims.create({
+      key: 'explosion_anim',
+      frames: this.anims.generateFrameNumbers('explosion'),
+      frameRate: 60,
+      repeat: 0,
+      hideOnComplete: true
+    });
+
+    this.anims.create({
+      key: 'explosion2_anim',
+      frames: this.anims.generateFrameNumbers('explosion2'),
+      frameRate: 60,
       repeat: 0,
       hideOnComplete: true
     });

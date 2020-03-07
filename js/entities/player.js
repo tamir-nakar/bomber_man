@@ -7,6 +7,8 @@ class Player extends Phaser.GameObjects.Sprite {
     this.speed = 200;
     this.currentAvailableBombs = 1;
     this.keyboard = keyboard;
+    this.firePower = 1;
+    this.setScale(0.9);
   }
 
   update() {
@@ -45,7 +47,7 @@ function _checkBombPlant() {
       this.keyboard.space.isDown = false;
       const addBomb = () => this.currentAvailableBombs++;
       this.currentAvailableBombs--;
-      new Bomb(this.scene, this.x, this.y, addBomb);
+      new Bomb(this.scene, this.x, this.y, addBomb, this.firePower);
     }
   }
 }

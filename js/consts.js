@@ -10,3 +10,7 @@ const TILES = {
   BOX: 'b',
   EMPTY: ''
 };
+
+const CONSTS = {
+  UNIT_SIZE: 64
+};
