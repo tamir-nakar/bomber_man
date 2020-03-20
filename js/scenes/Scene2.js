@@ -23,7 +23,16 @@ class Scene2 extends Phaser.Scene {
       this.input.keyboard.createCursorKeys(),
       ANGLES.RIGHT
     );
+
     this.physics.add.collider(this.player, top_layer);
+
+    this.explosions = this.add.group();
+    this.bombs = this.add.group();
+    this.physics.add.collider(this.bombs, top_layer);
+    this.physics.add.collider(this.bombs);
+
+    this.physics.add.overlap(this.player, this.explosions, () => console.log('kaboom'));
+    this.physics.add.overlap(this.bombs, this.explosions, bomb => bomb.explode());
   }
 
   update() {

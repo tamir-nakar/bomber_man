@@ -9,11 +9,33 @@ class Player extends Phaser.GameObjects.Sprite {
     this.keyboard = keyboard;
     this.firePower = 1;
     this.setScale(0.9);
+    this.isDetonator = false;
+    this.isKicker = false;
   }
 
   update() {
     _checkMovement.call(this);
     _checkBombPlant.call(this);
+    _checkDetonator.call(this);
+  }
+
+  increaseNumBombs() {
+    this.currentAvailableBombs++;
+  }
+  increaseFirePower() {
+    this.firePower++;
+  }
+  increaseSpeed() {
+    this.speed += 50;
+    console.log('speed up');
+  }
+  turnOnDetonator() {
+    console.log('detonator');
+    this.detonator = true;
+  }
+  turnOnKicker() {
+    console.log('kicker');
+    this.isKicker = true;
   }
 }
 
@@ -48,6 +70,16 @@ function _checkBombPlant() {
       const addBomb = () => this.currentAvailableBombs++;
       this.currentAvailableBombs--;
       new Bomb(this.scene, this.x, this.y, addBomb, this.firePower);
+    }
+  }
+}
+
+function _checkDetonator() {
+  if (this.detonator) {
+    if (this.keyboard.shift.isDown) {
+      console.log('detomate');
+      //this.scene.explosions.forEach(bomb => bomb.explode());
+      console.log(this.scene.bombs);
     }
   }
 }

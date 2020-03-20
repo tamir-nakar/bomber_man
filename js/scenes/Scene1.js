@@ -27,6 +27,10 @@ class Scene1 extends Phaser.Scene {
       frameWidth: 256,
       frameHeight: 256
     });
+    this.load.spritesheet('power_ups', '../assets/spritesheets/collactibles.png', {
+      frameWidth: 128,
+      frameHeight: 128
+    });
   }
   create() {
     this.scene.start('playGame');
@@ -59,6 +63,41 @@ class Scene1 extends Phaser.Scene {
       frames: this.anims.generateFrameNumbers('explosion2'),
       frameRate: 60,
       repeat: 0,
+      hideOnComplete: true
+    });
+    this.anims.create({
+      key: 'bomb_powerup_anim',
+      frames: this.anims.generateFrameNumbers('power_ups', { start: 13, end: 13 }),
+      frameRate: 60,
+      repeat: -1,
+      hideOnComplete: true
+    });
+    this.anims.create({
+      key: 'fire_powerup_anim',
+      frames: this.anims.generateFrameNumbers('power_ups', { start: 2, end: 2 }),
+      frameRate: 60,
+      repeat: -1,
+      hideOnComplete: true
+    });
+    this.anims.create({
+      key: 'kick_powerup_anim',
+      frames: this.anims.generateFrameNumbers('power_ups', { start: 3, end: 3 }),
+      frameRate: 60,
+      repeat: -1,
+      hideOnComplete: true
+    });
+    this.anims.create({
+      key: 'detonate_powerup_anim',
+      frames: this.anims.generateFrameNumbers('power_ups', { start: 4, end: 4 }),
+      frameRate: 60,
+      repeat: -1,
+      hideOnComplete: true
+    });
+    this.anims.create({
+      key: 'speed_powerup_anim',
+      frames: this.anims.generateFrameNumbers('power_ups', { start: 5, end: 5 }),
+      frameRate: 60,
+      repeat: -1,
       hideOnComplete: true
     });
   }

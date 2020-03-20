@@ -4,40 +4,32 @@ class Bomb extends Phaser.GameObjects.Sprite {
     scene.add.existing(this, true);
 
     this.anims.play('bomb_anim');
+
     //this.anims.chain('explosion_anim');
 
     scene.physics.world.enableBody(this);
-    this.body.immovable = true;
-    this.body.moves = false;
+
+    this.scene.player.isKicker ? (this.body.moves = true) : (this.body.moves = false);
+    this.scene.player.isKicker
+      ? (this.body.immovable = false)
+      : (this.body.immovable = true);
+
     scene.physics.add.collider(this, scene.player);
+    this.scene.bombs.add(this);
 
     this.on(
       'animationcomplete',
       () => {
         onBombExplodedHandler();
-        new Explosion(scene, this.x, this.y, 1);
+        new Explosion(scene, this.x, this.y, firePower);
         this.destroy();
       },
       this
     );
-    //   this.on(
-    //     'animationcomplete',
-    //     function() {
-    //       console.log(
-    //         scene.map.getTileAt(
-    //           scene.map.worldToTileX(this.x + 64),
-    //           scene.map.worldToTileY(this.y)
-    //         )
-    //       );
-    //       scene.map.removeTile(
-    //         scene.map.getTileAt(
-    //           scene.map.worldToTileX(this.x + 64),
-    //           scene.map.worldToTileY(this.y)
-    //         )
-    //       );
-    //     },
-    //     this
-    //   );
+  }
+
+  explode() {
+    this.anims.stop();
   }
 
   update() {
