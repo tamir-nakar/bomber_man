@@ -8,15 +8,29 @@ class Player extends Phaser.GameObjects.Sprite {
     this.currentAvailableBombs = 1;
     this.keyboard = keyboard;
     this.firePower = 1;
-    this.setScale(0.9);
+    this.body.setSize(50, 50);
     this.isDetonator = false;
     this.isKicker = false;
+    this.isDead = false;
+    scene.physics.add.overlap(this, scene.explosions, (_, exp) => {
+      if (this && !this.isDead) {
+        console.log(Phaser.Animations);
+        console.log(exp);
+        console.log(exp.animations);
+        scene.add.sprite(this.x, this.y, 'tomb').play('death_anim');
+        this.isDead = true;
+        this.destroy();
+      }
+      //this.destroy();
+    });
   }
 
   update() {
-    _checkMovement.call(this);
-    _checkBombPlant.call(this);
-    _checkDetonator.call(this);
+    if (this) {
+      _checkMovement.call(this);
+      _checkBombPlant.call(this);
+      _checkDetonator.call(this);
+    }
   }
 
   increaseNumBombs() {
@@ -31,17 +45,20 @@ class Player extends Phaser.GameObjects.Sprite {
   }
   turnOnDetonator() {
     console.log('detonator');
-    this.detonator = true;
+    this.isDetonator = true;
+    //this.isKicker = false;
   }
   turnOnKicker() {
     console.log('kicker');
     this.isKicker = true;
+    //this.isDetonator = false;
   }
 }
 
 // private -- !
 
 function _checkMovement() {
+  if (!this.body) return;
   this.body.setVelocityX(0);
   this.body.setVelocityY(0);
   this.anims.play('player_walk', true);
@@ -64,22 +81,23 @@ function _checkMovement() {
 }
 
 function _checkBombPlant() {
+  if (!this.scene) return;
   if (this.keyboard.space.isDown && this.keyboard.space.getDuration() > 50) {
     if (this.currentAvailableBombs >= 1) {
       this.keyboard.space.isDown = false;
       const addBomb = () => this.currentAvailableBombs++;
       this.currentAvailableBombs--;
-      new Bomb(this.scene, this.x, this.y, addBomb, this.firePower);
+      new Bomb(this.scene, this.x, this.y, addBomb, this.firePower, this.isDetonator);
     }
   }
 }
 
 function _checkDetonator() {
-  if (this.detonator) {
+  if (this.isDetonator) {
     if (this.keyboard.shift.isDown) {
-      console.log('detomate');
-      //this.scene.explosions.forEach(bomb => bomb.explode());
-      console.log(this.scene.bombs);
+      if (this.scene) {
+        this.scene.bombs.getChildren().forEach(b => b.explode());
+      }
     }
   }
 }

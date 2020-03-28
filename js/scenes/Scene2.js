@@ -8,7 +8,8 @@ class Scene2 extends Phaser.Scene {
     const metalTileset = this.map.addTilesetImage('metal');
     const boxTileset = this.map.addTilesetImage('box');
     const bgTileset = this.map.addTilesetImage('ground_bg', 'bg');
-
+    this.explosions = this.add.group();
+    this.bombs = this.add.group();
     this.map.createStaticLayer('bg_layer', [bgTileset]);
     const top_layer = this.map.createDynamicLayer('block_layer', [
       boxTileset,
@@ -26,16 +27,15 @@ class Scene2 extends Phaser.Scene {
 
     this.physics.add.collider(this.player, top_layer);
 
-    this.explosions = this.add.group();
-    this.bombs = this.add.group();
     this.physics.add.collider(this.bombs, top_layer);
     this.physics.add.collider(this.bombs);
 
-    this.physics.add.overlap(this.player, this.explosions, () => console.log('kaboom'));
     this.physics.add.overlap(this.bombs, this.explosions, bomb => bomb.explode());
   }
 
   update() {
-    this.player.update();
+    if (this.player) {
+      this.player.update();
+    }
   }
 }

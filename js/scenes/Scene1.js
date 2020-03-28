@@ -14,6 +14,11 @@ class Scene1 extends Phaser.Scene {
       frameHeight: 62
     });
 
+    this.load.spritesheet('death', '../assets/spritesheets/death.png', {
+      frameWidth: 64,
+      frameHeight: 64
+    });
+
     this.load.spritesheet('bomb', '../assets/spritesheets/bomb.png', {
       frameWidth: 32,
       frameHeight: 32
@@ -51,8 +56,24 @@ class Scene1 extends Phaser.Scene {
     });
 
     this.anims.create({
-      key: 'explosion_anim',
-      frames: this.anims.generateFrameNumbers('explosion'),
+      key: 'bomb_detonated_anim',
+      frames: this.anims.generateFrameNumbers('bomb', { start: 12, end: 13 }),
+      frameRate: 10,
+      repeat: -1,
+      hideOnComplete: false
+    });
+
+    this.anims.create({
+      key: 'explosion_anim_p1',
+      frames: this.anims.generateFrameNumbers('explosion', { start: 1, end: 35 }),
+      frameRate: 60,
+      repeat: 0,
+      hideOnComplete: false
+    });
+
+    this.anims.create({
+      key: 'explosion_anim_p2',
+      frames: this.anims.generateFrameNumbers('explosion', { start: 36 }),
       frameRate: 60,
       repeat: 0,
       hideOnComplete: true
@@ -99,6 +120,14 @@ class Scene1 extends Phaser.Scene {
       frameRate: 60,
       repeat: -1,
       hideOnComplete: true
+    });
+
+    this.anims.create({
+      key: 'death_anim',
+      frames: this.anims.generateFrameNumbers('death'),
+      frameRate: 24,
+      repeat: 0,
+      hideOnComplete: false
     });
   }
 }

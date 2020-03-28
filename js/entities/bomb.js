@@ -1,9 +1,9 @@
 class Bomb extends Phaser.GameObjects.Sprite {
-  constructor(scene, x, y, onBombExplodedHandler, firePower) {
+  constructor(scene, x, y, onBombExplodedHandler, firePower, isDetonated) {
     super(scene, x, y, 'bomb');
     scene.add.existing(this, true);
 
-    this.anims.play('bomb_anim');
+    isDetonated ? this.anims.play('bomb_detonated_anim') : this.anims.play('bomb_anim');
 
     //this.anims.chain('explosion_anim');
 
