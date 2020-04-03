@@ -23,8 +23,9 @@ class Explosion extends Phaser.GameObjects.Sprite {
             scene.map.worldToTileX(sub_e.x),
             scene.map.worldToTileY(sub_e.y)
           );
+          this.body.setEnable(false);
           if (tile) {
-            this.body.setEnable(false);
+            
             this.scene.map.removeTile(tile);
 
             if (Math.floor(Math.random() * 100 + 1) > 70)
