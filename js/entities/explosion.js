@@ -25,7 +25,6 @@ class Explosion extends Phaser.GameObjects.Sprite {
           );
           this.body.setEnable(false);
           if (tile) {
-            
             this.scene.map.removeTile(tile);
 
             if (Math.floor(Math.random() * 100 + 1) > 70)
@@ -104,6 +103,7 @@ function _setSubExplosions() {
   this.subExplosionsCount = arr.length;
   arr.forEach(tile => {
     const sprite = this.scene.add.sprite(tile[0], tile[1], 'explosion');
+    sprite.setDepth(1);
     sprite.setSize(64, 64);
     this.scene.explosions.add(sprite);
 
@@ -117,10 +117,9 @@ function _setSubExplosions() {
 }
 
 function _playExplosionAnims() {
-  if(this.isShake){
+  if (this.isShake) {
     this.isShake = false;
-  this.scene.cameras.main.shake(200, 0.009);
-
+    this.scene.cameras.main.shake(200, 0.009);
   }
   this.size >= 3
     ? this.play('middle_explosion_big')
