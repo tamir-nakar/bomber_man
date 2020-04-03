@@ -14,9 +14,6 @@ class Player extends Phaser.GameObjects.Sprite {
     this.isDead = false;
     scene.physics.add.overlap(this, scene.explosions, (_, exp) => {
       if (this && !this.isDead) {
-        console.log(Phaser.Animations);
-        console.log(exp);
-        console.log(exp.animations);
         scene.add.sprite(this.x, this.y, 'tomb').play('death_anim');
         this.isDead = true;
         this.destroy();
@@ -83,7 +80,7 @@ function _checkMovement() {
 function _checkBombPlant() {
   if (!this.scene) return;
   if (this.keyboard.space.isDown && this.keyboard.space.getDuration() > 50) {
-    if (this.currentAvailableBombs >= 1) {
+    if (this.currentAvailableBombs >= 1 && !_isBombOverlap.call(this)) {
       this.keyboard.space.isDown = false;
       const addBomb = () => this.currentAvailableBombs++;
       this.currentAvailableBombs--;
@@ -98,6 +95,22 @@ function _checkDetonator() {
       if (this.scene) {
         this.scene.bombs.getChildren().forEach(b => b.explode());
       }
+    }
+  }
+}
+
+function _isBombOverlap() {
+  if (this.scene.bombs.getChildren().length) {
+  }
+
+  this.scene.bombs.getChildren().find(b => b.x - this.x < 64 || b.y - this.y < 64);
+
+  for (let i = 0; i < this.scene.bombs.getChildren().length; i++) {
+    if (
+      Math.abs(this.scene.bombs.getChildren()[i].x - this.x) < 32 &&
+      Math.abs(this.scene.bombs.getChildren()[i].y - this.y) < 32
+    ) {
+      return true;
     }
   }
 }
