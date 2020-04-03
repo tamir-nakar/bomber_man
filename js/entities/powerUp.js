@@ -6,9 +6,9 @@ class PowerUp extends Phaser.GameObjects.Sprite {
     this.body.moves = false;
 
     this.type = _getRandomType.call(this);
-    this.setScale(0.4);
-    this.body.offset.x = 30;
-    this.body.offset.y = 30;
+
+    //this.body.offset.x = 30;
+    //this.body.offset.y = 30;
     scene.powerUps.add(this);
 
     //this.scene.physics.add.overlap(this, this.explosions, () => this.destroy);
