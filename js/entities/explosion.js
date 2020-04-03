@@ -25,6 +25,8 @@ class Explosion extends Phaser.GameObjects.Sprite {
           );
           if (tile) {
             this.scene.map.removeTile(tile);
+            this.body.setEnable(false);
+
             if (Math.floor(Math.random() * 100 + 1) > 70)
               new PowerUp(this.scene, sub_e.x, sub_e.y);
           }
@@ -33,6 +35,7 @@ class Explosion extends Phaser.GameObjects.Sprite {
         } else {
           // animation phase 2
           console.log('phase2');
+
           this.subExplosionsCount--;
           sub_e.destroy();
         }
@@ -114,7 +117,9 @@ function _setSubExplosions() {
 }
 
 function _playExplosionAnims() {
-  this.play('explosion2_anim');
+  this.size >= 3
+    ? this.play('middle_explosion_big')
+    : this.play('middle_explosion_small');
 
   this.subExplosions.forEach(ex => {
     ex.anims.play('explosion_anim_p1');

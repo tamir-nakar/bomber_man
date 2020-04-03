@@ -65,7 +65,7 @@ class Scene1 extends Phaser.Scene {
 
     this.anims.create({
       key: 'explosion_anim_p1',
-      frames: this.anims.generateFrameNumbers('explosion', { start: 1, end: 35 }),
+      frames: this.anims.generateFrameNumbers('explosion', { start: 1, end: 5 }),
       frameRate: 60,
       repeat: 0,
       hideOnComplete: false
@@ -73,19 +73,28 @@ class Scene1 extends Phaser.Scene {
 
     this.anims.create({
       key: 'explosion_anim_p2',
-      frames: this.anims.generateFrameNumbers('explosion', { start: 36 }),
+      frames: this.anims.generateFrameNumbers('explosion', { start: 6 }),
       frameRate: 60,
       repeat: 0,
       hideOnComplete: true
     });
 
     this.anims.create({
-      key: 'explosion2_anim',
-      frames: this.anims.generateFrameNumbers('explosion2'),
+      key: 'middle_explosion_small',
+      frames: this.anims.generateFrameNumbers('explosion2', { end: 24 }),
       frameRate: 60,
       repeat: 0,
       hideOnComplete: true
     });
+
+    this.anims.create({
+      key: 'middle_explosion_big',
+      frames: this.anims.generateFrameNumbers('explosion2', { start: 25 }),
+      frameRate: 60,
+      repeat: 0,
+      hideOnComplete: true
+    });
+
     this.anims.create({
       key: 'bomb_powerup_anim',
       frames: this.anims.generateFrameNumbers('power_ups', { start: 13, end: 13 }),
