@@ -2,7 +2,6 @@ class PowerUp extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y) {
     super(scene, x, y, 'powerUp');
     scene.add.existing(this, true);
-
     scene.physics.world.enableBody(this);
     this.body.moves = false;
 
@@ -10,6 +9,8 @@ class PowerUp extends Phaser.GameObjects.Sprite {
     this.setScale(0.4);
     this.body.offset.x = 30;
     this.body.offset.y = 30;
+    scene.powerUps.add(this);
+
     //this.scene.physics.add.overlap(this, this.explosions, () => this.destroy);
 
     if (this.type) {

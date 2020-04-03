@@ -10,6 +10,7 @@ class Scene2 extends Phaser.Scene {
     const bgTileset = this.map.addTilesetImage('ground_bg', 'bg');
     this.explosions = this.add.group();
     this.bombs = this.add.group();
+    this.powerUps = this.add.group();
     this.map.createStaticLayer('bg_layer', [bgTileset]);
     const top_layer = this.map.createDynamicLayer('block_layer', [
       boxTileset,
@@ -29,7 +30,9 @@ class Scene2 extends Phaser.Scene {
 
     this.physics.add.collider(this.bombs, top_layer);
     this.physics.add.collider(this.bombs);
-
+    this.physics.add.overlap(this.powerUps, this.explosions, powerup =>
+      powerup.destroy()
+    );
     this.physics.add.overlap(this.bombs, this.explosions, bomb => bomb.explode());
   }
 

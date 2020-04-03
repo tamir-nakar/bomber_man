@@ -116,7 +116,11 @@ function _setSubExplosions() {
 }
 
 function _playExplosionAnims() {
+  if(this.isShake){
+    this.isShake = false;
   this.scene.cameras.main.shake(200, 0.009);
+
+  }
   this.size >= 3
     ? this.play('middle_explosion_big')
     : this.play('middle_explosion_small');
