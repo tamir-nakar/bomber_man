@@ -17,22 +17,22 @@ class PowerUp extends Phaser.GameObjects.Sprite {
       this.play(`${this.type}_powerup_anim`);
     }
 
-    scene.physics.add.overlap(this, scene.player, () => {
+    scene.physics.add.overlap(this, scene.players, (_, player) => {
       switch (this.type) {
         case 'fire':
-          scene.player.increaseFirePower();
+          player.increaseFirePower();
           break;
         case 'bomb':
-          scene.player.increaseNumBombs();
+          player.increaseNumBombs();
           break;
         case 'kick':
-          scene.player.turnOnKicker();
+          player.turnOnKicker();
           break;
         case 'detonate':
-          scene.player.turnOnDetonator();
+          player.turnOnDetonator();
           break;
         case 'speed':
-          scene.player.increaseSpeed();
+          player.increaseSpeed();
           break;
       }
       this.destroy();
@@ -54,18 +54,17 @@ class PowerUp extends Phaser.GameObjects.Sprite {
 // private -- !
 
 function _getRandomType() {
-  // speed, kick-bomb, demolition
   const rand = Math.floor(Math.random() * 100 + 1);
 
-  if (rand <= 20) {
+  if (rand <= 30) {
+    return 'bomb';
+  } else if (rand >= 31 && rand <= 60) {
     return 'fire';
-  } else if (rand >= 21 && rand <= 40) {
-    return 'speed';
-  } else if (rand >= 41 && rand <= 60) {
-    return 'kick';
   } else if (rand >= 61 && rand <= 80) {
+    return 'speed';
+  } else if (rand >= 81 && rand <= 90) {
     return 'detonate';
   } else {
-    return 'bomb';
+    return 'kick';
   }
 }
