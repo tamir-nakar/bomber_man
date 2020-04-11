@@ -8,7 +8,8 @@ class Player extends Phaser.GameObjects.Sprite {
     this.angle = start_angle;
     this.speed = 200;
     this.currentAvailableBombs = 1;
-    this.keyboard = keyboard;
+
+    this.keyboard = _createKeyboard.call(scene, keyboard);
     this.firePower = 1;
     this.body.setSize(45, 45);
     this.isDetonator = false;
@@ -126,4 +127,13 @@ function _isBombOverlap() {
       return true;
     }
   }
+}
+
+function _createKeyboard(keyBoardObj) {
+  const res = {};
+  Object.keys(keyBoardObj).forEach(
+    key => (res[key] = this.input.keyboard.addKey(keyBoardObj[key][1]))
+  );
+
+  return res;
 }

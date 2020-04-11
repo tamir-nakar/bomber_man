@@ -14,7 +14,7 @@ class Bomb extends Phaser.GameObjects.Sprite {
 
     this.body.moves = false;
     this.body.immovable = true;
-    if (this.scene[`player${this.id}`].isKicker) {
+    if (this.scene.playersRefs[this.id - 1].isKicker) {
       this.body.moves = true;
       this.body.immovable = false;
     }
