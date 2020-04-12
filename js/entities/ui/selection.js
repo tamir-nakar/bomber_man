@@ -1,5 +1,5 @@
 class Selection extends Phaser.GameObjects.Image {
-  constructor(scene, x, y, optionsArr, sprite) {
+  constructor(scene, x, y, optionsArr, spriteName) {
     super(scene, x, y, 'btn_simple');
     this.scene = scene;
     this.scene.add.existing(this, true);
@@ -8,7 +8,7 @@ class Selection extends Phaser.GameObjects.Image {
     this.isSelected = false;
     this.optionsArr = optionsArr;
     this.playAction = null;
-    this.sprite = null;
+    this.spriteName = spriteName;
     this._init(x, y);
     this.setScale(1.15);
   }
@@ -40,7 +40,7 @@ class Selection extends Phaser.GameObjects.Image {
       })
       .setDepth(3);
 
-    this.sprite = this.scene.add.sprite(x - 45, y - 3, 'player_options').setDepth(3);
+    this.sprite = this.scene.add.sprite(x - 45, y - 3, this.spriteName).setDepth(3);
     this.playAction = () => {
       this.currentOption = (this.currentOption + 1) % this.optionsArr.length;
       this.text.setText(this.optionsArr[this.currentOption]);

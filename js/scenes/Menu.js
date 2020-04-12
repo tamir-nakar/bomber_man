@@ -148,7 +148,8 @@ function _menuBtnClickedHandler() {
     case 'campaign_btn':
       break;
     case 'pvp_btn':
-      this.scene.start('playGame', { numPlayers: 3, ...this.data });
+      //this.scene.start('playGame', { numPlayers: 3, ...this.data });
+      this.scene.start('sub_battleSettings', { ...this.data });
       break;
     case 'pvAI_btn':
       this.scene.restart();

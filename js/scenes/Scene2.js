@@ -121,7 +121,7 @@ class Scene2 extends Phaser.Scene {
     ]);
     this.top_layer = top_layer;
     top_layer.setCollisionByProperty({ collides: true });
-    _createPlayers.call(this, 4); // this.data.numPlayers;
+    _createPlayers.call(this, this.data.players); // this.data.numPlayers;
     this.isCheckEndGame = true;
     //this.scene.restart();
 
@@ -146,22 +146,22 @@ class Scene2 extends Phaser.Scene {
     }
   }
 }
-function _createPlayers(numPlayers) {
-  for (let i = 0; i < numPlayers; i++) {
+function _createPlayers(players) {
+  players.forEach(idx => {
     const keyBoard =
       this.data && this.data.keyBoards
-        ? this.data.keyBoards[i]
-        : this.playersDetails[i].keyboard;
+        ? this.data.keyBoards[idx]
+        : this.playersDetails[idx].keyboard;
 
-    this.playersRefs[i] = new Player(
+    this.playersRefs[idx] = new Player(
       this,
-      this.playersDetails[i].startLocation.x,
-      this.playersDetails[i].startLocation.y,
+      this.playersDetails[idx].startLocation.x,
+      this.playersDetails[idx].startLocation.y,
       keyBoard,
-      this.playersDetails[i].angle,
-      i + 1
+      this.playersDetails[idx].angle,
+      idx + 1
     );
-  }
+  });
 }
 
 function _handleEndGame() {
