@@ -7,6 +7,7 @@ class SubMenu_instructions extends Phaser.Scene {
   init() {}
 
   create() {
+    //new Selection(this, 500, 500, ['Player', 'Computer', 'None']);
     new Button(
       this,
       LAYOUT.RIGHT_MARGIN - LAYOUT.SPACE_UNIT * 2,
