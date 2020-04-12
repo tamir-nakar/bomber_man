@@ -111,12 +111,13 @@ class SubMenu_settings extends Phaser.Scene {
       }
     );
     this.alertText.visible = false;
-    const saveAndExitBtn = this.add.text(700, 600, 'SAVE & EXIT').setInteractive();
-    const returnBtn = this.add.text(200, 600, 'RETURN TO MAIN MENU').setInteractive();
-    saveAndExitBtn.on('pointerdown', () => {
-      _saveAndExitHandler.call(this);
-    });
-    returnBtn.on('pointerdown', () => this.scene.start('menu'));
+    new Button(this, 700, 600, 'SAVE & EXIT', () =>
+      _saveAndExitHandler.call(this)
+    ).alignTextRelative(-30, 0);
+
+    new Button(this, 200, 600, 'BACK TO MENU', () => this.scene.start('menu'))
+      .alignTextRelative(-35, 0)
+      .setStyle({ font: '17px Arial' });
   }
 
   create() {
@@ -173,7 +174,6 @@ class SubMenu_settings extends Phaser.Scene {
     );
 
     this.input.keyboard.on('keyup', a => {
-      
       if (this.isAllowedKeyChange) {
         this.selectedKey.txt.setText(a.key.toUpperCase());
         this.newKeySet[this.selectedKey.keysetId][
@@ -182,11 +182,11 @@ class SubMenu_settings extends Phaser.Scene {
         this.newKeySet[this.selectedKey.keysetId][this.selectedKey.keyId][1] = a.keyCode;
 
         this.isAllowedKeyChange = false;
+        this.changeKeyTxt.visible = false;
+        this.isNewKeysetChanged = true;
+        this.selectedKey.setScale(1);
+        this.selectedKey.txt.setFont('15px Arial');
       }
-      this.changeKeyTxt.visible = false;
-      this.isNewKeysetChanged = true;
-      this.selectedKey.setScale(1);
-      this.selectedKey.txt.setFont('15px Arial');
     });
 
     this.buttons.forEach(btn =>

@@ -157,6 +157,7 @@ function _menuBtnClickedHandler() {
       this.scene.start('sub_settings', { data: 'dataFromMEnu' });
       break;
     case 'instructions_btn':
+      this.scene.start('sub_instructions');
       break;
   }
 }

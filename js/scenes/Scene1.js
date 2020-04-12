@@ -12,6 +12,7 @@ class Scene1 extends Phaser.Scene {
     this.load.image('box', '../assets/images/box.png');
     this.load.image('metal', '../assets/images/metal.png');
     this.load.image('promptWindow', '../assets/images/promptWindow.png');
+    this.load.image('btn_simple', '../assets/images/menu_items/simpleBtn.png');
     this.load.tilemapTiledJSON('map', '../assets/map/map.json');
 
     this.load.spritesheet('player1', '../assets/spritesheets/player1.png', {

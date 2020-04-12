@@ -14,3 +14,12 @@ const TILES = {
 const CONSTS = {
   UNIT_SIZE: 64
 };
+
+const LAYOUT = {
+  LEFT_MARGIN: 35,
+  RIGHT_MARGIN: 925,
+  TOP_MARGIN: 35,
+  BOTTOM_MARGIN: 685,
+  RIGHT_MARGIN: 925,
+  SPACE_UNIT: 45
+};
