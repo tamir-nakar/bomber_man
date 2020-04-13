@@ -86,11 +86,11 @@ class Scene2 extends Phaser.Scene {
       stat.setKicker(stats.kicker);
     } else {
       // dead
-      console.log('dead');
+      //console.log('dead');
     }
   }
   init(data) {
-    console.log(`Scene2 got: ${JSON.stringify(data)}`);
+    //console.log(`Scene2 got: ${JSON.stringify(data)}`);
     this.winner = null;
 
     if (data) {
@@ -247,7 +247,7 @@ function _createSinglePlayerStat(idx, x, y) {
       if (!this.isDetonator) {
         if (v) {
           this.isDetonator = true;
-          console.log(this.detonatorSprite);
+          //console.log(this.detonatorSprite);
           this.detonatorSprite.visible = true;
         }
       }
@@ -255,7 +255,7 @@ function _createSinglePlayerStat(idx, x, y) {
     setKicker: function(v) {
       //debugger;
       if (!this.isKicker) {
-        console.log(this.kickerSprite);
+        //console.log(this.kickerSprite);
 
         if (v) {
           this.isKicker = true;

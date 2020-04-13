@@ -56,13 +56,13 @@ class PowerUp extends Phaser.GameObjects.Sprite {
 function _getRandomType() {
   const rand = Math.floor(Math.random() * 100 + 1);
 
-  if (rand <= 30) {
+  if (rand <= 35) {
     return 'bomb';
-  } else if (rand >= 31 && rand <= 60) {
+  } else if (rand >= 36 && rand <= 66) {
     return 'fire';
-  } else if (rand >= 61 && rand <= 80) {
+  } else if (rand >= 67 && rand <= 82) {
     return 'speed';
-  } else if (rand >= 81 && rand <= 90) {
+  } else if (rand >= 83 && rand <= 93) {
     return 'detonate';
   } else {
     return 'kick';

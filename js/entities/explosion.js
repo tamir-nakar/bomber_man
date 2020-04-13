@@ -29,7 +29,7 @@ class Explosion extends Phaser.GameObjects.Sprite {
           if (tile) {
             this.scene.map.removeTile(tile);
 
-            if (Math.floor(Math.random() * 100 + 1) > 55)
+            if (Math.floor(Math.random() * 100 + 1) > 60)
               new PowerUp(this.scene, sub_e.x, sub_e.y);
           }
 

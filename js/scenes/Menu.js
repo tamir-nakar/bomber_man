@@ -23,7 +23,7 @@ class Menu extends Phaser.Scene {
     this.load.image('settings_btn', '../assets/images/menu_items/settings.png');
   }
   init(data) {
-    console.log(`menu got: ${JSON.stringify(data)}`);
+    //console.log(`menu got: ${JSON.stringify(data)}`);
     this.data = data;
   }
   create() {
