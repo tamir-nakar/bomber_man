@@ -9,6 +9,7 @@ class Scene1 extends Phaser.Scene {
   }
   preload() {
     this.load.image('bg', '../assets/images/ground_bg.png');
+    this.load.image('statsPanel', '../assets/images/statsPanel.png');
     this.load.image('box', '../assets/images/box.png');
     this.load.image('metal', '../assets/images/metal.png');
     this.load.image('promptWindow', '../assets/images/promptWindow.png');

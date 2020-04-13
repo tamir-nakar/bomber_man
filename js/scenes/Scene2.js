@@ -98,6 +98,7 @@ class Scene2 extends Phaser.Scene {
     }
   }
   create() {
+    this.add.image(479, 705, 'statsPanel').setDepth(0);
     this.promptWindow = this.add.image(500, 300, 'promptWindow');
     this.promptWindow.setDepth(2);
     this.promptWindow.visible = false;
@@ -271,17 +272,17 @@ function _createSinglePlayerStat(idx, x, y) {
   stat.fireTxt = _createParagraph.call(this, t.x + 20, t.y + 25, '1');
   let s = this.add.sprite(t.x + 70, t.y, 'power_ups', 18);
   stat.speedTxt = _createParagraph.call(this, t.x + 90, t.y - 10, '1');
-  stat.kickerSprite =this.add.sprite(s.x, f.y, 'power_ups', 24)
-   stat.kickerSprite.visible = false;
-  stat.detonatorSprite = this.add.sprite(s.x + 35, f.y, 'power_ups', 12);
-  stat.detonatorSprite.visible = false
+  stat.kickerSprite = this.add.sprite(s.x - 12, f.y + 2, 'power_ups', 24);
+  stat.kickerSprite.visible = false;
+  stat.detonatorSprite = this.add.sprite(s.x + 22, f.y + 2, 'power_ups', 12);
+  stat.detonatorSprite.visible = false;
 
   this.playerIdToStatMap[idx + 1] = stat;
 }
 
 function _createPlayersStat(playersIdxs) {
-  const y = 650;
-  let x = 50;
+  const y = 653;
+  let x = 120;
   for (let i = 0; i < playersIdxs.length; i++, x += 200) {
     _createSinglePlayerStat.call(this, playersIdxs[i], x, y);
   }
