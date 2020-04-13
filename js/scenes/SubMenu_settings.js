@@ -88,6 +88,7 @@ class SubMenu_settings extends Phaser.Scene {
   }
 
   preload() {
+    this.load.image('settings_bg', '../assets/images/menu_items/settings_bg.png');
     this.load.image('upKey', '../assets/images/menu_items/upKey.png');
     this.load.image('downKey', '../assets/images/menu_items/downKey.png');
     this.load.image('leftKey', '../assets/images/menu_items/leftKey.png');
@@ -96,31 +97,41 @@ class SubMenu_settings extends Phaser.Scene {
     this.load.image('bombKey', '../assets/images/menu_items/bombKey.png');
   }
   init(data) {
-    this.changeKeyTxt = this.add.text(350, 550, 'PRESS ANY KEY TO EXCHANGE WITH', {
-      font: '20px Arial',
-      fill: '#34db5b'
-    });
+    this.changeKeyTxt = this.add
+      .text(290, 165, 'PRESS ANY KEY TO EXCHANGE WITH', {
+        font: '20px Arial',
+        fill: '#34db5b'
+      })
+      .setDepth(2);
     this.changeKeyTxt.visible = false;
-    this.alertText = this.add.text(
-      350,
-      580,
-      'TWO OR MORE KEYS POINTING TO THE SAME BUTTON',
-      {
+    this.alertText = this.add
+      .text(250, 590, 'TWO OR MORE KEYS POINTING TO THE SAME BUTTON', {
         font: '20px Arial',
         fill: '#ce0000'
-      }
-    );
+      })
+      .setDepth(2);
     this.alertText.visible = false;
-    new Button(this, 700, 600, 'SAVE & EXIT', () =>
-      _saveAndExitHandler.call(this)
+    new Button(
+      this,
+      LAYOUT.RIGHT_MARGIN - 100,
+      LAYOUT.BOTTOM_MARGIN + 30,
+      'SAVE & EXIT',
+      () => _saveAndExitHandler.call(this)
     ).alignTextRelative(-30, 0);
 
-    new Button(this, 200, 600, 'BACK TO MENU', () => this.scene.start('menu'))
+    new Button(
+      this,
+      LAYOUT.LEFT_MARGIN + 100,
+      LAYOUT.BOTTOM_MARGIN + 30,
+      'BACK TO MENU',
+      () => this.scene.start('menu')
+    )
       .alignTextRelative(-35, 0)
       .setStyle({ font: '17px Arial' });
   }
 
   create() {
+    this.add.image(480, 385, 'settings_bg');
     this.anims.create({
       key: 'Menu_player1_walk',
       frames: this.anims.generateFrameNumbers('player1'),
@@ -212,10 +223,10 @@ class SubMenu_settings extends Phaser.Scene {
 
 function _createKeySet(idx, upSym, downSym, leftSym, rightSym, bombSym, detonatorSym) {
   const idxToCoord = [
-    [250, 150],
-    [700, 150],
-    [250, 400],
-    [700, 400]
+    [300, 250],
+    [750, 250],
+    [300, 450],
+    [750, 450]
   ];
   const idxToFill = ['#3A9DEB', '#43865D', '#AE7A1E', '#FFF867'];
   const x = idxToCoord[idx][0];
@@ -291,6 +302,7 @@ function _saveAndExitHandler() {
       this.scene.start('menu', { keyBoards: this.newKeySet });
     } else {
       this.alertText.visible = true;
+      setTimeout(()=> this.alertText.visible=false, 2000)
     }
   } else {
     this.scene.start('menu');
