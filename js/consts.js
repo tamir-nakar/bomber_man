@@ -12,7 +12,7 @@ const TILES = {
 };
 
 const CONSTS = {
-  UNIT_SIZE: 64
+  UNIT_SIZE: 58
 };
 
 const LAYOUT = {

@@ -8,7 +8,9 @@ class Explosion extends Phaser.GameObjects.Sprite {
     this.size = size;
     this.scene.physics.world.enableBody(this);
     this.body.moves = false;
-    this.body.setSize(64, 64);
+    this.body.setSize(45, 45); //(64,64)
+    this.body.offset.x += 2;
+    this.body.offset.y -= 2;
     this.isShake = true;
     this.scene.explosions.add(this);
     _setSubExplosions.call(this);
@@ -27,7 +29,7 @@ class Explosion extends Phaser.GameObjects.Sprite {
           if (tile) {
             this.scene.map.removeTile(tile);
 
-            if (Math.floor(Math.random() * 100 + 1) > 70)
+            if (Math.floor(Math.random() * 100 + 1) > 55)
               new PowerUp(this.scene, sub_e.x, sub_e.y);
           }
 
@@ -104,12 +106,12 @@ function _setSubExplosions() {
   arr.forEach(tile => {
     const sprite = this.scene.add.sprite(tile[0], tile[1], 'explosion');
     sprite.setDepth(1);
-    sprite.setSize(64, 64);
+    sprite.setSize(45, 45); //64 64
     this.scene.explosions.add(sprite);
 
     this.scene.physics.world.enableBody(sprite);
-    sprite.body.offset.x = 95;
-    sprite.body.offset.y = 95;
+    sprite.body.offset.x = 107; //95
+    sprite.body.offset.y = 100; //95
     sprite.body.moves = false;
 
     this.subExplosions.push(sprite);
