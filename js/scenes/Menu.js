@@ -1,30 +1,25 @@
 class Menu extends Phaser.Scene {
   constructor() {
     super('menu');
-    this.buttons = [
-      'campaign_btn',
-      'pvp_btn',
-      'pvAI_btn',
-      'settings_btn',
-      'instructions_btn'
-    ];
+    this.buttons = ['play_btn', 'settings_btn', 'instructions_btn'];
     this.lastBombAnim = 0;
     this.hoverSpriteLeft = null;
     this.hoverSpriteRight = null;
-    this.campaign_btn = null;
-    this.pvp_btn = null;
-    this.pvAI_btn = null;
+    //this.campaign_btn = null;
+    this.play_btn = null;
     this.settings_btn = null;
     this.instructions_btn = null;
-    this.currentSelectedBtn = 'campaign_btn';
+    this.currentSelectedBtn = 'play_btn';
     this.data = null;
   }
 
   preload() {
-    this.load.image('campaign_btn', '../assets/images/menu_items/campaign.png');
+    //this.load.image('campaign_btn', '../assets/images/menu_items/campaign.png');
     this.load.image('instructions_btn', '../assets/images/menu_items/instructions.png');
-    this.load.image('pvp_btn', '../assets/images/menu_items/pvp.png');
-    this.load.image('pvAI_btn', '../assets/images/menu_items/playerVsAI.png');
+    this.load.image('menu_bg', '../assets/images/menu_items/menu_bg.png');
+    //this.load.image('pvp_btn', '../assets/images/menu_items/pvp.png');
+    //this.load.image('pvAI_btn', '../assets/images/menu_items/playerVsAI.png');
+    this.load.image('play_btn', '../assets/images/menu_items/play.png');
     this.load.image('settings_btn', '../assets/images/menu_items/settings.png');
   }
   init(data) {
@@ -56,16 +51,22 @@ class Menu extends Phaser.Scene {
       frameRate: 6,
       repeat: -1
     });
-
-    this.campaign_btn = this.add.image(550, 200, 'campaign_btn').setInteractive();
-    this.campaign_btn.width = 261;
-    this.pvp_btn = this.add.image(550, 300, 'pvp_btn').setInteractive();
-    this.pvp_btn.width = 522;
-    this.pvAI_btn = this.add.image(550, 400, 'pvAI_btn').setInteractive();
-    this.pvAI_btn.width = 392;
-    this.settings_btn = this.add.image(550, 500, 'settings_btn').setInteractive();
+    this.add.image(480, 385, 'menu_bg');
+    _createParagraph.call(
+      this,
+      LAYOUT.RIGHT_MARGIN - 200,
+      LAYOUT.BOTTOM_MARGIN + 40,
+      'A game by Tamir Nakar'
+    );
+    this.play_btn = this.add.image(500, 280, 'play_btn').setInteractive();
+    this.play_btn.width = 160;
+    //this.pvp_btn = this.add.image(550, 300, 'pvp_btn').setInteractive();
+    //this.pvp_btn.width = 522;
+    //this.pvAI_btn = this.add.image(550, 400, 'pvAI_btn').setInteractive();
+    //this.pvAI_btn.width = 392;
+    this.settings_btn = this.add.image(500, 380, 'settings_btn').setInteractive();
     this.settings_btn.width = 261;
-    this.instructions_btn = this.add.image(550, 600, 'instructions_btn').setInteractive();
+    this.instructions_btn = this.add.image(500, 480, 'instructions_btn').setInteractive();
     this.instructions_btn.width = 391;
 
     _initHoverSprites.call(this);
@@ -116,16 +117,16 @@ function _getRandomBombAnim() {
 function _initHoverSprites() {
   const rand = _getRandomBombAnim.call(this);
   this.hoverSpriteLeft = this.add.sprite(
-    this.campaign_btn.x - this.campaign_btn.width / 1.5,
-    this.campaign_btn.y,
+    this.play_btn.x - this.play_btn.width / 1.5,
+    this.play_btn.y,
     'hoverSpriteLeft'
   );
   this.hoverSpriteLeft.setScale(1.4);
   this.hoverSpriteLeft.play(`menu_bomb${rand}_anim`);
 
   this.hoverSpriteRight = this.add.sprite(
-    this.campaign_btn.x + this.campaign_btn.width / 1.5,
-    this.campaign_btn.y,
+    this.play_btn.x + this.play_btn.width / 1.5,
+    this.play_btn.y,
     'hoverSpriteRight'
   );
   this.hoverSpriteRight.setScale(1.4);
@@ -145,15 +146,13 @@ function _selectMenuBtn(btnName) {
 
 function _menuBtnClickedHandler() {
   switch (this.currentSelectedBtn) {
-    case 'campaign_btn':
-      break;
-    case 'pvp_btn':
+    // case 'campaign_btn':
+    //   break;
+    case 'play_btn':
       //this.scene.start('playGame', { numPlayers: 3, ...this.data });
       this.scene.start('sub_battleSettings', { ...this.data });
       break;
-    case 'pvAI_btn':
-      this.scene.restart();
-      break;
+
     case 'settings_btn':
       this.scene.start('sub_settings', { data: 'dataFromMEnu' });
       break;
