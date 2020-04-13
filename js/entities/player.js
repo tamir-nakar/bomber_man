@@ -1,5 +1,5 @@
 class Player extends Phaser.GameObjects.Sprite {
-  constructor(scene, x, y, keyboard, start_angle, id) {
+  constructor(scene, x, y, keyboard, start_angle, id, color) {
     super(scene, x, y, 'player');
     scene.add.existing(this);
     scene.players.add(this);
@@ -8,6 +8,8 @@ class Player extends Phaser.GameObjects.Sprite {
     this.angle = start_angle;
     this.speed = 200;
     this.currentAvailableBombs = 1;
+    this.numBombs = 1;
+    this.color = color;
 
     this.keyboard = _createKeyboard.call(scene, keyboard);
     this.firePower = 1;
@@ -17,11 +19,13 @@ class Player extends Phaser.GameObjects.Sprite {
     this.isDead = false;
     this.body.offset.x = 10;
     this.body.offset.y = 7;
+    this.speedCount = 1;
 
     scene.physics.add.overlap(this, scene.explosions, (_, exp) => {
       if (this && !this.isDead) {
         scene.add.sprite(this.x, this.y, 'tomb').play('death_anim');
         this.isDead = true;
+        _updateStats.call(this);
         this.destroy();
       }
       //this.destroy();
@@ -43,21 +47,26 @@ class Player extends Phaser.GameObjects.Sprite {
   }
 
   increaseNumBombs() {
+    this.numBombs++;
     this.currentAvailableBombs++;
+    _updateStats.call(this);
   }
   increaseFirePower() {
     this.firePower++;
+    _updateStats.call(this);
   }
   increaseSpeed() {
     this.speed += 50;
+    this.speedCount++;
+    _updateStats.call(this);
   }
   turnOnDetonator() {
     this.isDetonator = true;
-    //this.isKicker = false;
+    _updateStats.call(this);
   }
   turnOnKicker() {
     this.isKicker = true;
-    //this.isDetonator = false;
+    _updateStats.call(this);
   }
 }
 
@@ -136,4 +145,16 @@ function _createKeyboard(keyBoardObj) {
   );
 
   return res;
+}
+
+function _updateStats() {
+  const stats = {
+    bombs: this.numBombs,
+    fire: this.firePower,
+    speed: this.speedCount,
+    detonator: this.isDetonator,
+    kicker: this.isKicker,
+    isDead: this.isDead
+  };
+  this.scene.updateStats(this.id, stats);
 }

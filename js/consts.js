@@ -23,3 +23,7 @@ const LAYOUT = {
   RIGHT_MARGIN: 925,
   SPACE_UNIT: 45
 };
+
+const PLAYERS = {
+  COLORS: ['#3A9DEB', '#43865D', '#AE7A1E', '#FFF867']
+};

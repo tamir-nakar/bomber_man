@@ -4,7 +4,7 @@ const gameSettings = {
 
 const config = {
   width: 960,
-  height: 720, // 640
+  height: 770, // 640
   backgroundColor: 0x000000,
   scene: [
     Scene1,

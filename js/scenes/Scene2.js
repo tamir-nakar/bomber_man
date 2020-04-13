@@ -5,6 +5,7 @@ class Scene2 extends Phaser.Scene {
     this.isCheckEndGame = false;
     this.winner = null;
     this.playersRefs = [];
+    this.playerIdToStatMap = {};
 
     this.playersDetails = [
       {
@@ -74,6 +75,20 @@ class Scene2 extends Phaser.Scene {
     ];
   }
 
+  updateStats(id, stats) {
+    const stat = this.playerIdToStatMap[id];
+
+    if (!stats.isDead) {
+      stat.setBombs(stats.bombs);
+      stat.setFire(stats.fire);
+      stat.setSpeed(stats.speed);
+      stat.setDetonator(stats.detonator);
+      stat.setKicker(stats.kicker);
+    } else {
+      // dead
+      console.log('dead');
+    }
+  }
   init(data) {
     console.log(`Scene2 got: ${JSON.stringify(data)}`);
     this.winner = null;
@@ -122,6 +137,7 @@ class Scene2 extends Phaser.Scene {
     this.top_layer = top_layer;
     top_layer.setCollisionByProperty({ collides: true });
     _createPlayers.call(this, this.data.players); // this.data.numPlayers;
+    _createPlayersStat.call(this, this.data.players);
     this.isCheckEndGame = true;
     //this.scene.restart();
 
@@ -133,10 +149,6 @@ class Scene2 extends Phaser.Scene {
       powerup.destroy()
     );
     this.physics.add.overlap(this.bombs, this.explosions, bomb => bomb.explode());
-
-    const text = this.add.text(50, 650, '', { font: '22px Courier', fill: '#00ff00' });
-    let a = 12;
-    text.setText(['Level: ' + a, 'Lives: ' + 17, 'Score: ' + 18]);
   }
 
   update() {
@@ -159,7 +171,8 @@ function _createPlayers(players) {
       this.playersDetails[idx].startLocation.y,
       keyBoard,
       this.playersDetails[idx].angle,
-      idx + 1
+      idx + 1,
+      PLAYERS.COLORS[idx]
     );
   });
 }
@@ -207,5 +220,69 @@ function _handleEndGame() {
       .setInteractive()
       .setDepth(3)
       .on('pointerdown', () => this.scene.start('menu'));
+  }
+}
+
+function _createSinglePlayerStat(idx, x, y) {
+  const stat = {
+    bombsTxt: null,
+    fireTxt: null,
+    speedTxt: null,
+    kickerSprite: null,
+    detonatorSprite: null,
+    isDetonator: false,
+    isKicker: false,
+    setBombs: function(v) {
+      this.bombsTxt.setText(v);
+    },
+    setFire: function(v) {
+      this.fireTxt.setText(v);
+    },
+    setSpeed: function(v) {
+      this.speedTxt.setText(v);
+    },
+    setDetonator: function(v) {
+      //debugger;
+      if (!this.isDetonator) {
+        if (v) {
+          this.isDetonator = true;
+          console.log(this.detonatorSprite);
+          this.detonatorSprite.visible = true;
+        }
+      }
+    },
+    setKicker: function(v) {
+      //debugger;
+      if (!this.isKicker) {
+        console.log(this.kickerSprite);
+
+        if (v) {
+          this.isKicker = true;
+          this.kickerSprite.visible = true;
+        }
+      }
+    }
+  };
+
+  let t = _createSubtitle.call(this, x, y, `PLAYER ${idx + 1}`, PLAYERS.COLORS[idx]);
+  t = this.add.sprite(t.x + 10, t.y + 50, 'power_ups', 6);
+  stat.bombsTxt = _createParagraph.call(this, t.x + 20, t.y - 10, '1');
+  let f = this.add.sprite(t.x, t.y + 35, 'power_ups', 0);
+  stat.fireTxt = _createParagraph.call(this, t.x + 20, t.y + 25, '1');
+  let s = this.add.sprite(t.x + 70, t.y, 'power_ups', 18);
+  stat.speedTxt = _createParagraph.call(this, t.x + 90, t.y - 10, '1');
+  stat.kickerSprite =this.add.sprite(s.x, f.y, 'power_ups', 24)
+   stat.kickerSprite.visible = false;
+  stat.detonatorSprite = this.add.sprite(s.x + 35, f.y, 'power_ups', 12);
+  stat.detonatorSprite.visible = false
+
+  this.playerIdToStatMap[idx + 1] = stat;
+}
+
+function _createPlayersStat(playersIdxs) {
+  const y = 650;
+  let x = 50;
+  for (let i = 0; i < playersIdxs.length; i++, x += 200) {
+    _createSinglePlayerStat.call(this, playersIdxs[i], x, y);
   }
 }

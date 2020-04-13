@@ -67,5 +67,5 @@ function _createPlayerPanel(x, y, idx) {
 function _getPlayers() {
   let res = [];
   this.selections.forEach((s, idx) => (s.value === 'Player' ? res.push(idx) : ''));
-  return res.length > 2 ? res : -1;
+  return res.length >= 2 ? res : -1;
 }
