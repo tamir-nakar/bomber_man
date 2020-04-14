@@ -88,13 +88,13 @@ class SubMenu_settings extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('settings_bg', '../assets/images/menu_items/settings_bg.png');
-    this.load.image('upKey', '../assets/images/menu_items/upKey.png');
-    this.load.image('downKey', '../assets/images/menu_items/downKey.png');
-    this.load.image('leftKey', '../assets/images/menu_items/leftKey.png');
-    this.load.image('rightKey', '../assets/images/menu_items/rightKey.png');
-    this.load.image('detonatorKey', '../assets/images/menu_items/detonatorKey.png');
-    this.load.image('bombKey', '../assets/images/menu_items/bombKey.png');
+    this.load.image('settings_bg', '/bmbrmn/assets/images/menu_items/settings_bg.png');
+    this.load.image('upKey', '/bmbrmn/assets/images/menu_items/upKey.png');
+    this.load.image('downKey', '/bmbrmn/assets/images/menu_items/downKey.png');
+    this.load.image('leftKey', '/bmbrmn/assets/images/menu_items/leftKey.png');
+    this.load.image('rightKey', '/bmbrmn/assets/images/menu_items/rightKey.png');
+    this.load.image('detonatorKey', '/bmbrmn/assets/images/menu_items/detonatorKey.png');
+    this.load.image('bombKey', '/bmbrmn/assets/images/menu_items/bombKey.png');
   }
   init(data) {
     this.changeKeyTxt = this.add
