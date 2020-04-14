@@ -4,7 +4,7 @@ class SubMenu_instructions extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('instructions_bg', '/bmbr/assets/images/menu_items/instructions_bg.png');
+    this.load.image('instructions_bg', '/bomberMan/assets/images/menu_items/instructions_bg.png');
   }
   init() {}
 
