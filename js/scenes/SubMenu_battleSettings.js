@@ -7,7 +7,7 @@ class SubMenu_battleSettings extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image('play_bg', '/bomberMan/assets/images/menu_items/play_bg.png');
+    this.load.image('play_bg', '../assets/images/menu_items/play_bg.png');
   }
   init(data) {
     this.data = data;

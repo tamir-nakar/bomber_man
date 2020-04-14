@@ -8,73 +8,73 @@ class Scene1 extends Phaser.Scene {
     this.data = data;
   }
   preload() {
-    this.load.image('bg', '/bomberMan/assets/images/ground_bg.png');
-    this.load.image('statsPanel', '/bomberMan/assets/images/statsPanel.png');
-    this.load.image('box', '/bomberMan/assets/images/box.png');
-    this.load.image('metal', '/bomberMan/assets/images/metal.png');
-    this.load.image('promptWindow', '/bomberMan/assets/images/promptWindow.png');
-    this.load.image('btn_simple', '/bomberMan/assets/images/menu_items/simpleBtn.png');
-    this.load.tilemapTiledJSON('map', '/bomberMan/assets/map/map.json');
+    this.load.image('bg', '../assets/images/ground_bg.png');
+    this.load.image('statsPanel', '../assets/images/statsPanel.png');
+    this.load.image('box', '../assets/images/box.png');
+    this.load.image('metal', '../assets/images/metal.png');
+    this.load.image('promptWindow', '../assets/images/promptWindow.png');
+    this.load.image('btn_simple', '../assets/images/menu_items/simpleBtn.png');
+    this.load.tilemapTiledJSON('map', '../assets/map/map.json');
 
-    this.load.spritesheet('player1', '/bomberMan/assets/spritesheets/player1.png', {
+    this.load.spritesheet('player1', '../assets/spritesheets/player1.png', {
       frameWidth: 62,
       frameHeight: 62
     });
 
-    this.load.spritesheet('player_options', '/bomberMan/assets/spritesheets/player_options.png', {
+    this.load.spritesheet('player_options', '../assets/spritesheets/player_options.png', {
       frameWidth: 64,
       frameHeight: 64
     });
 
-    this.load.spritesheet('player2', '/bomberMan/assets/spritesheets/player2.png', {
+    this.load.spritesheet('player2', '../assets/spritesheets/player2.png', {
       frameWidth: 62,
       frameHeight: 62
     });
 
-    this.load.spritesheet('player3', '/bomberMan/assets/spritesheets/player3.png', {
+    this.load.spritesheet('player3', '../assets/spritesheets/player3.png', {
       frameWidth: 62,
       frameHeight: 62
     });
 
-    this.load.spritesheet('player4', '/bomberMan/assets/spritesheets/player4.png', {
+    this.load.spritesheet('player4', '../assets/spritesheets/player4.png', {
       frameWidth: 62,
       frameHeight: 62
     });
 
-    this.load.spritesheet('death', '/bomberMan/assets/spritesheets/death.png', {
+    this.load.spritesheet('death', '../assets/spritesheets/death.png', {
       frameWidth: 64,
       frameHeight: 64
     });
 
-    this.load.spritesheet('bomb1', '/bomberMan/assets/spritesheets/bomb1.png', {
+    this.load.spritesheet('bomb1', '../assets/spritesheets/bomb1.png', {
       frameWidth: 32,
       frameHeight: 32
     });
 
-    this.load.spritesheet('bomb2', '/bomberMan/assets/spritesheets/bomb2.png', {
+    this.load.spritesheet('bomb2', '../assets/spritesheets/bomb2.png', {
       frameWidth: 32,
       frameHeight: 32
     });
 
-    this.load.spritesheet('bomb3', '/bomberMan/assets/spritesheets/bomb3.png', {
+    this.load.spritesheet('bomb3', '../assets/spritesheets/bomb3.png', {
       frameWidth: 32,
       frameHeight: 32
     });
 
-    this.load.spritesheet('bomb4', '/bomberMan/assets/spritesheets/bomb4.png', {
+    this.load.spritesheet('bomb4', '../assets/spritesheets/bomb4.png', {
       frameWidth: 32,
       frameHeight: 32
     });
 
-    this.load.spritesheet('explosion', '/bomberMan/assets/spritesheets/explosion_1.png', {
+    this.load.spritesheet('explosion', '../assets/spritesheets/explosion_1.png', {
       frameWidth: 256,
       frameHeight: 256
     });
-    this.load.spritesheet('explosion2', '/bomberMan/assets/spritesheets/explosion_4.png', {
+    this.load.spritesheet('explosion2', '../assets/spritesheets/explosion_4.png', {
       frameWidth: 256,
       frameHeight: 256
     });
-    this.load.spritesheet('power_ups', '/bomberMan/assets/spritesheets/powerUps.png', {
+    this.load.spritesheet('power_ups', '../assets/spritesheets/powerUps.png', {
       frameWidth: 32,
       frameHeight: 32
     });
