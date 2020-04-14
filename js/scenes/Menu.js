@@ -15,12 +15,12 @@ class Menu extends Phaser.Scene {
 
   preload() {
     //this.load.image('campaign_btn', '../assets/images/menu_items/campaign.png');
-    this.load.image('instructions_btn', '/bomberMan/assets/images/menu_items/instructions.png');
-    this.load.image('menu_bg', '/bomberMan/assets/images/menu_items/menu_bg.png');
+    this.load.image('instructions_btn', '/bmbr/assets/images/menu_items/instructions.png');
+    this.load.image('menu_bg', '/bmbr/assets/images/menu_items/menu_bg.png');
     //this.load.image('pvp_btn', '../assets/images/menu_items/pvp.png');
     //this.load.image('pvAI_btn', '../assets/images/menu_items/playerVsAI.png');
-    this.load.image('play_btn', '/bomberMan/assets/images/menu_items/play.png');
-    this.load.image('settings_btn', '/bomberMan/assets/images/menu_items/settings.png');
+    this.load.image('play_btn', '/bmbr/assets/images/menu_items/play.png');
+    this.load.image('settings_btn', '/bmbr/assets/images/menu_items/settings.png');
   }
   init(data) {
     //console.log(`menu got: ${JSON.stringify(data)}`);
