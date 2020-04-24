@@ -1,14 +1,22 @@
 class Button extends Phaser.GameObjects.Image {
-  constructor(scene, x, y, text, callback) {
-    super(scene, x, y, 'btn_simple');
+  constructor(scene, x, y, text, callback, img = 'btn_simple') {
+    super(scene, x, y, img);
     this.scene = scene;
     this.scene.add.existing(this, true);
     this.text = null;
     this.isSelected = false;
     this._init(x, y, text);
     this.playAction = callback;
+    this.isDown = false;
   }
 
+  get isDownn() {
+    return this.isDownn;
+  }
+
+  // set isDownn(val) {
+  //   this.isDownn = val;
+  // }
   setStyle(styleObj) {
     this.text.setStyle(styleObj);
     return this;
@@ -29,7 +37,7 @@ class Button extends Phaser.GameObjects.Image {
       .text(x - 30, y - 12, text, {
         font: '20px Arial',
         fill: '#000000',
-        align: 'center'
+        align: 'center',
       })
       .setDepth(3);
 
@@ -42,11 +50,13 @@ class Button extends Phaser.GameObjects.Image {
 
     this.on('pointerout', () => {
       this.isSelected = false;
+      this.isDown = false;
       this.setScale(1);
       this.setTint();
     });
 
     this.on('pointerdown', () => {
+      this.isDown = true;
       this.playAction();
     });
 

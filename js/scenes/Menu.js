@@ -31,25 +31,25 @@ class Menu extends Phaser.Scene {
       key: 'menu_bomb1_anim',
       frames: this.anims.generateFrameNumbers('bomb1'),
       frameRate: 6,
-      repeat: -1
+      repeat: -1,
     });
     this.anims.create({
       key: 'menu_bomb2_anim',
       frames: this.anims.generateFrameNumbers('bomb2'),
       frameRate: 6,
-      repeat: -1
+      repeat: -1,
     });
     this.anims.create({
       key: 'menu_bomb3_anim',
       frames: this.anims.generateFrameNumbers('bomb3'),
       frameRate: 6,
-      repeat: -1
+      repeat: -1,
     });
     this.anims.create({
       key: 'menu_bomb4_anim',
       frames: this.anims.generateFrameNumbers('bomb4'),
       frameRate: 6,
-      repeat: -1
+      repeat: -1,
     });
     this.add.image(480, 385, 'menu_bg');
     _createParagraph.call(
@@ -71,7 +71,7 @@ class Menu extends Phaser.Scene {
 
     _initHoverSprites.call(this);
 
-    this.buttons.forEach(btn =>
+    this.buttons.forEach((btn) =>
       this[btn].on('pointerover', () => {
         if (this.currentSelectedBtn !== btn) {
           _selectMenuBtn.call(this, btn);
@@ -79,13 +79,13 @@ class Menu extends Phaser.Scene {
       })
     );
 
-    this.buttons.forEach(btn =>
+    this.buttons.forEach((btn) =>
       this[btn].on('pointerdown', () => {
         _menuBtnClickedHandler.call(this);
       })
     );
 
-    this.input.keyboard.on('keydown-ENTER', function() {
+    this.input.keyboard.on('keydown-ENTER', function () {
       _menuBtnClickedHandler.call(this.scene);
     });
 
@@ -154,7 +154,7 @@ function _menuBtnClickedHandler() {
       break;
 
     case 'settings_btn':
-      this.scene.start('sub_settings', { data: 'dataFromMEnu' });
+      this.scene.start('sub_settings', { ...this.data });
       break;
     case 'instructions_btn':
       this.scene.start('sub_instructions');

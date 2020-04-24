@@ -12,7 +12,7 @@ class Scene2 extends Phaser.Scene {
         // 1
         startLocation: {
           x: 90,
-          y: 90
+          y: 90,
         },
         keyboard: {
           upKey: ['W', 87],
@@ -20,15 +20,15 @@ class Scene2 extends Phaser.Scene {
           leftKey: ['A', 65],
           rightKey: ['D', 68],
           bombKey: ['E', 69],
-          detonatorKey: ['Q', 81]
+          detonatorKey: ['Q', 81],
         },
-        angle: ANGLES.RIGHT
+        angle: ANGLES.RIGHT,
       },
       {
         // 2
         startLocation: {
           x: 870,
-          y: 155
+          y: 155,
         },
         keyboard: {
           upKey: ['UP', 38],
@@ -36,15 +36,15 @@ class Scene2 extends Phaser.Scene {
           leftKey: ['LEFT', 37],
           rightKey: ['RIGHT', 39],
           bombKey: ['ENTER', 13],
-          detonatorKey: ['\\', 220]
+          detonatorKey: ['\\', 220],
         },
-        angle: ANGLES.LEFT
+        angle: ANGLES.LEFT,
       },
       {
         // 3
         startLocation: {
           x: 870,
-          y: 550
+          y: 550,
         },
         keyboard: {
           upKey: ['Y', 89],
@@ -52,15 +52,15 @@ class Scene2 extends Phaser.Scene {
           leftKey: ['G', 71],
           rightKey: ['J', 74],
           bombKey: ['U', 85],
-          detonatorKey: ['T', 84]
+          detonatorKey: ['T', 84],
         },
-        angle: ANGLES.LEFT
+        angle: ANGLES.LEFT,
       },
       {
         // 4
         startLocation: {
           x: 90,
-          y: 550
+          y: 550,
         },
         keyboard: {
           upKey: ['L', 76],
@@ -68,10 +68,26 @@ class Scene2 extends Phaser.Scene {
           leftKey: [',', 188],
           rightKey: ['/', 191],
           bombKey: [';', 186],
-          detonatorKey: ['K', 75]
+          detonatorKey: ['K', 75],
         },
-        angle: ANGLES.RIGHT
-      }
+        angle: ANGLES.RIGHT,
+      },
+      {
+        // mobile
+        startLocation: {
+          x: 90,
+          y: 90,
+        },
+        keyboard: {
+          upKey: null,
+          downKey: null,
+          leftKey: null,
+          rightKey: null,
+          bombKey: ['E', 69],
+          detonatorKey: ['Q', 81],
+        },
+        angle: ANGLES.RIGHT,
+      },
     ];
   }
 
@@ -89,8 +105,17 @@ class Scene2 extends Phaser.Scene {
       //console.log('dead');
     }
   }
+  preload() {
+    this.load.plugin(
+      'rexvirtualjoystickplugin',
+      'https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexvirtualjoystickplugin.min.js',
+      true
+    );
+  }
   init(data) {
     //console.log(`Scene2 got: ${JSON.stringify(data)}`);
+    this.isMobile = !this.sys.game.device.os.desktop;
+
     this.winner = null;
 
     if (data) {
@@ -98,6 +123,10 @@ class Scene2 extends Phaser.Scene {
     }
   }
   create() {
+    if (this.data.isMobile) {
+      _drawMobileController.call(this);
+    }
+
     this.add.image(479, 705, 'statsPanel').setDepth(0);
     this.promptWindow = this.add.image(500, 300, 'promptWindow');
     this.promptWindow.setDepth(2);
@@ -107,11 +136,11 @@ class Scene2 extends Phaser.Scene {
       this.promptWindow.y - 50,
       '',
       {
-        font: '42px Arial'
+        font: '42px Arial',
       }
     );
 
-    this.input.keyboard.on('keydown', a => {
+    this.input.keyboard.on('keydown', (a) => {
       if (a.keyCode === 27) {
         this.scene.start('menu');
       }
@@ -133,7 +162,7 @@ class Scene2 extends Phaser.Scene {
     this.map.createStaticLayer('bg_layer', [bgTileset]);
     const top_layer = this.map.createDynamicLayer('block_layer', [
       boxTileset,
-      metalTileset
+      metalTileset,
     ]);
     this.top_layer = top_layer;
     top_layer.setCollisionByProperty({ collides: true });
@@ -146,36 +175,97 @@ class Scene2 extends Phaser.Scene {
 
     this.physics.add.collider(this.bombs, top_layer);
     this.physics.add.collider(this.bombs);
-    this.physics.add.overlap(this.powerUps, this.explosions, powerup =>
+    this.physics.add.overlap(this.powerUps, this.explosions, (powerup) =>
       powerup.destroy()
     );
-    this.physics.add.overlap(this.bombs, this.explosions, bomb => bomb.explode());
+    this.physics.add.overlap(this.bombs, this.explosions, (bomb) => bomb.explode());
   }
 
   update() {
-    this.players.getChildren().forEach(p => (p ? p.update() : ''));
+    this.players.getChildren().forEach((p) => (p ? p.update() : ''));
     if (this.isCheckEndGame) {
       _handleEndGame.call(this);
     }
   }
 }
 function _createPlayers(players) {
-  players.forEach(idx => {
-    const keyBoard =
-      this.data && this.data.keyBoards
-        ? this.data.keyBoards[idx]
-        : this.playersDetails[idx].keyboard;
+  if (!this.isMobile) {
+    // DESKTOP
 
-    this.playersRefs[idx] = new Player(
-      this,
-      this.playersDetails[idx].startLocation.x,
-      this.playersDetails[idx].startLocation.y,
-      keyBoard,
-      this.playersDetails[idx].angle,
-      idx + 1,
-      PLAYERS.COLORS[idx]
-    );
-  });
+    players.forEach((idx) => {
+      const keyBoard =
+        this.data && this.data.keyBoards
+          ? this.data.keyBoards[idx]
+          : this.playersDetails[idx].keyboard;
+
+      this.playersRefs[idx] = new Player(
+        this,
+        this.playersDetails[idx].startLocation.x,
+        this.playersDetails[idx].startLocation.y,
+        keyBoard,
+        this.playersDetails[idx].angle,
+        idx + 1,
+        PLAYERS.COLORS[idx]
+      );
+    });
+  } else {
+    //mobile
+    players.forEach((idx) => {
+      const keyBoard =
+        this.data && this.data.keyBoards
+          ? this.data.keyBoards[idx]
+          : this.playersDetails[idx].keyboard;
+
+      if (idx === 0) {
+        this.playersRefs[idx] = new Player(
+          this,
+          this.playersDetails[idx].startLocation.x,
+          this.playersDetails[idx].startLocation.y,
+          this.playersDetails[4].keyboard,
+          this.playersDetails[idx].angle,
+          idx + 1,
+          PLAYERS.COLORS[idx]
+        );
+      } else {
+        this.playersRefs[idx] = new Player(
+          this,
+          this.playersDetails[idx].startLocation.x,
+          this.playersDetails[idx].startLocation.y,
+          keyBoard,
+          this.playersDetails[idx].angle,
+          idx + 1,
+          PLAYERS.COLORS[idx]
+        );
+      }
+    });
+  }
+  // players.forEach((idx) => {
+  //   const keyBoard =
+  //     this.data && this.data.keyBoards
+  //       ? this.data.keyBoards[idx]
+  //       : this.playersDetails[idx].keyboard;
+
+  //   if (idx === 3) {
+  //     this.playersRefs[idx] = new AiPlayer(
+  //       this,
+  //       this.playersDetails[idx].startLocation.x,
+  //       this.playersDetails[idx].startLocation.y,
+  //       this.playersDetails[idx].angle,
+  //       idx + 1,
+  //       PLAYERS.COLORS[idx]
+  //     );
+  //   } else {
+  //     this.playersRefs[idx] = new Player(
+  //       this,
+  //       this.playersDetails[idx].startLocation.x,
+  //       this.playersDetails[idx].startLocation.y,
+  //       keyBoard,
+  //       this.playersDetails[idx].angle,
+  //       idx + 1,
+  //       PLAYERS.COLORS[idx]
+  //     );
+  //   }
+  // });
 }
 
 function _handleEndGame() {
@@ -190,7 +280,7 @@ function _handleEndGame() {
     this.promptWindow.visible = true;
     this.promptWindow.txt.setText(`${this.winner} WIN !!!`);
     this.promptWindow.txt.setStyle({
-      fill: idxToFill[idx]
+      fill: idxToFill[idx],
     });
     this.promptWindow.txt.visible = true;
     this.promptWindow.txt.setDepth(3);
@@ -204,7 +294,7 @@ function _handleEndGame() {
       .play(`player${id}_walk`);
     this.add
       .text(this.promptWindow.txt.x + 350, this.promptWindow.txt.y + 140, 'Play again', {
-        fill: '#ffffff'
+        fill: '#ffffff',
       })
       .setInteractive()
       .setDepth(3)
@@ -215,7 +305,7 @@ function _handleEndGame() {
         this.promptWindow.txt.y + 140,
         'Return to menu',
         {
-          fill: '#ffffff'
+          fill: '#ffffff',
         }
       )
       .setInteractive()
@@ -233,16 +323,16 @@ function _createSinglePlayerStat(idx, x, y) {
     detonatorSprite: null,
     isDetonator: false,
     isKicker: false,
-    setBombs: function(v) {
+    setBombs: function (v) {
       this.bombsTxt.setText(v);
     },
-    setFire: function(v) {
+    setFire: function (v) {
       this.fireTxt.setText(v);
     },
-    setSpeed: function(v) {
+    setSpeed: function (v) {
       this.speedTxt.setText(v);
     },
-    setDetonator: function(v) {
+    setDetonator: function (v) {
       //debugger;
       if (!this.isDetonator) {
         if (v) {
@@ -252,7 +342,7 @@ function _createSinglePlayerStat(idx, x, y) {
         }
       }
     },
-    setKicker: function(v) {
+    setKicker: function (v) {
       //debugger;
       if (!this.isKicker) {
         //console.log(this.kickerSprite);
@@ -262,7 +352,7 @@ function _createSinglePlayerStat(idx, x, y) {
           this.kickerSprite.visible = true;
         }
       }
-    }
+    },
   };
 
   let t = _createSubtitle.call(this, x, y, `PLAYER ${idx + 1}`, PLAYERS.COLORS[idx]);
@@ -286,4 +376,41 @@ function _createPlayersStat(playersIdxs) {
   for (let i = 0; i < playersIdxs.length; i++, x += 200) {
     _createSinglePlayerStat.call(this, playersIdxs[i], x, y);
   }
+}
+
+function _drawMobileController() {
+  this.joyStick = this.plugins.get('rexvirtualjoystickplugin').add(this, {
+    x: LAYOUT.LEFT_MARGIN + 45,
+    y: LAYOUT.BOTTOM_MARGIN - 80,
+    radius: 60,
+    base: this.add.circle(0, 0, 60, 0x888888).setDepth(5), //100
+    thumb: this.add.circle(0, 0, 30, 0xcccccc).setDepth(5), //50
+    dir: '4dir',
+    // forceMin: 16,
+    enable: true,
+  });
+  const bombBtn = new Button(
+    this,
+    720,
+    LAYOUT.BOTTOM_MARGIN - 80,
+    '',
+    () => {},
+    'btn_bomb'
+  );
+  const detonatorBtn = new Button(
+    this,
+    840,
+    LAYOUT.BOTTOM_MARGIN - 80,
+    '',
+    () => {},
+    'btn_detonator'
+  );
+
+  const cursorKeys = this.joyStick.createCursorKeys();
+  this.playersDetails[4].keyboard['upKey'] = cursorKeys.up;
+  this.playersDetails[4].keyboard['downKey'] = cursorKeys.down;
+  this.playersDetails[4].keyboard['leftKey'] = cursorKeys.left;
+  this.playersDetails[4].keyboard['rightKey'] = cursorKeys.right;
+  this.playersDetails[4].keyboard['bombKey'] = bombBtn;
+  this.playersDetails[4].keyboard['detonatorKey'] = detonatorBtn;
 }

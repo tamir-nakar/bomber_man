@@ -7,13 +7,13 @@ class Player extends Phaser.GameObjects.Sprite {
   // private members--!
 
   #id;
-  #speed = 200;
-  #currentAvailableBombs = 1;
+  #speed = 200; // protected
+  #currentAvailableBombs = 1; // protected
   #numBombs = 1;
   #speedCount = 1;
   #keyboard;
-  #firePower = 1;
-  #isDetonator = false;
+  #firePower = 1; // protected
+  #isDetonator = false; // protected
   #color;
   #isKicker = false;
   #isDead = false;
@@ -53,6 +53,25 @@ class Player extends Phaser.GameObjects.Sprite {
 
   get isDead() {
     return this.#isDead;
+  }
+
+  get speed() {
+    return this.#speed; // for dervied
+  }
+
+  get currentAvailableBombs() {
+    return this.#currentAvailableBombs;
+  }
+
+  set currentAvailableBombs(val) {
+    this.#currentAvailableBombs = val;
+  }
+
+  get firePower() {
+    return this.#firePower;
+  }
+  get isDetonator() {
+    return this.#isDetonator;
   }
   create() {}
 
@@ -121,20 +140,22 @@ class Player extends Phaser.GameObjects.Sprite {
 
   #checkBombPlant = () => {
     if (this.scene) {
-      if (this.#keyboard.bombKey.isDown && this.#keyboard.bombKey.getDuration() > 50) {
-        if (this.#currentAvailableBombs >= 1 && !this.#isBombOverlap()) {
-          this.#keyboard.bombKey.isDown = false;
-          const addBomb = () => this.#currentAvailableBombs++;
-          this.#currentAvailableBombs--;
-          new Bomb(
-            this.scene,
-            this.x,
-            this.y,
-            addBomb,
-            this.#firePower,
-            this.#isDetonator,
-            this.#id
-          );
+      if (this.#keyboard.bombKey.isDown) {
+        if (this.scene.isMobile || this.#keyboard.bombKey.getDuration() > 50) {
+          if (this.#currentAvailableBombs >= 1 && !this.isBombOverlap()) {
+            this.#keyboard.bombKey.isDown = false;
+            const addBomb = () => this.#currentAvailableBombs++;
+            this.#currentAvailableBombs--;
+            new Bomb(
+              this.scene,
+              this.x,
+              this.y,
+              addBomb,
+              this.#firePower,
+              this.#isDetonator,
+              this.#id
+            );
+          }
         }
       }
     }
@@ -144,14 +165,15 @@ class Player extends Phaser.GameObjects.Sprite {
     if (this.#isDetonator) {
       if (this.#keyboard.detonatorKey.isDown) {
         if (this.scene) {
-          this.scene[`p${this.#id}_bombs`].getChildren().forEach(b => b.explode());
+          this.scene[`p${this.#id}_bombs`].getChildren().forEach((b) => b.explode());
         }
       }
     }
   };
 
-  #isBombOverlap = () => {
-    this.scene.bombs.getChildren().find(b => b.x - this.x < 64 || b.y - this.y < 64);
+  isBombOverlap = () => {
+    // protected
+    this.scene.bombs.getChildren().find((b) => b.x - this.x < 64 || b.y - this.y < 64);
 
     for (let i = 0; i < this.scene.bombs.getChildren().length; i++) {
       if (
@@ -162,14 +184,18 @@ class Player extends Phaser.GameObjects.Sprite {
       }
     }
   };
+  #createKeyboard = (keyBoardObj) => {
+    if (!this.scene.isMobile) {
+      // desktop
+      const res = {};
+      Object.keys(keyBoardObj).forEach(
+        (key) => (res[key] = this.scene.input.keyboard.addKey(keyBoardObj[key][1]))
+      );
 
-  #createKeyboard = keyBoardObj => {
-    const res = {};
-    Object.keys(keyBoardObj).forEach(
-      key => (res[key] = this.scene.input.keyboard.addKey(keyBoardObj[key][1]))
-    );
-
-    return res;
+      return res;
+    } else {
+      return keyBoardObj;
+    }
   };
 
   #updateStats = () => {
@@ -179,7 +205,7 @@ class Player extends Phaser.GameObjects.Sprite {
       speed: this.#speedCount,
       detonator: this.#isDetonator,
       kicker: this.#isKicker,
-      isDead: this.#isDead
+      isDead: this.#isDead,
     };
     this.scene.updateStats(this.#id, stats);
   };
