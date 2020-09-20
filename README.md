@@ -1,7 +1,7 @@
 
-#Bomber-Man
+# Bomber-Man
 
->A remake for the classic bomber-man video game.
+> A remake for the classic bomber-man video game.
 Developed in Javascript using Phaser.js library.
 
 ##### Features (complete and un-complete)
