@@ -11,7 +11,7 @@ Developed in Javascript using Phaser.js library.
 - [ ] Multi-player game.
 
 `AI feature about to be released`
-![Gameplay Screenshot](https://s1.gifyu.com/images/game5.gif)
+<img src="/sample/gameplay.gif?raw=true">
 <br/>
 <br/>
 <br/>
