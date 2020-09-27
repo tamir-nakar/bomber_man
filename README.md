@@ -10,5 +10,12 @@ Developed in Javascript using Phaser.js library.
 - [ ] AI (playing VS. Computer).
 - [ ] Multi-player game.
 
-![Gameplay Screenshot](http://3.126.2.79/wp-content/uploads/2020/04/bmb2.jpg)
+`AI feature about to be released`
+![Gameplay Screenshot](https://s1.gifyu.com/images/game5.gif)
+<br/>
+<br/>
+<br/>
 `Gameplay Screenshot`
+![Gameplay Screenshot](http://3.126.2.79/wp-content/uploads/2020/04/bmb2.jpg)
+
+
