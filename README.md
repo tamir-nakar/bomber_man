@@ -16,6 +16,7 @@ Developed in Javascript using Phaser.js library.
 <br/>
 <br/>
 <br/>
+
 `Gameplay Screenshot`
 
 ![Gameplay Screenshot](http://3.126.2.79/wp-content/uploads/2020/04/bmb2.jpg)
