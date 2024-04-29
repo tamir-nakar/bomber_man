@@ -1,0 +1,17 @@
+{
+  "name": "bomber_man",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "> A remake for the classic bomber-man video game.\r Developed in Javascript using Phaser.js library.",
+  "main": "index.js",
+  "scripts": {
+    "start": "echo \"running server\" && node api/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
