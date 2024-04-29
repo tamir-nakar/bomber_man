@@ -1,8 +1,9 @@
 
 # Bomber-Man
 
-> A remake for the classic bomber-man video game.
-Developed in Javascript using Phaser.js library.
+ ### Bomber-Man is a high-framerate game designed and developed in accordance with the classic Bomber-Man game. It is built in plain JS using the Phaser.js library (to handle animations and high-speed rendering).
+
+<p>The game is designed for Person vs. Person or Person vs. AI gameplay, supports up to 4 players, and is mobile-friendly as well.</p>
 
 ##### Features (complete and un-complete)
 - [x] Person VS. Person up to 4 players.
@@ -16,9 +17,3 @@ Developed in Javascript using Phaser.js library.
 <br/>
 <br/>
 <br/>
-
-`Gameplay Screenshot`
-
-![Gameplay Screenshot](http://3.126.2.79/wp-content/uploads/2020/04/bmb2.jpg)
-
-
