@@ -9,7 +9,7 @@ class Player extends Phaser.GameObjects.Sprite {
   #id;
   #speed = 200; // protected
   #currentAvailableBombs = 1; // protected
-  #numBombs = 1;
+  #numBombs = 1; // protected
   #speedCount = 1;
   #keyboard;
   #firePower = 1; // protected
@@ -72,6 +72,10 @@ class Player extends Phaser.GameObjects.Sprite {
   }
   get isDetonator() {
     return this.#isDetonator;
+  }
+
+  get numBombs() {
+    return this.#numBombs;
   }
   create() {}
 

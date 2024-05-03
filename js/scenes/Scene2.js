@@ -198,15 +198,26 @@ function _createPlayers(players) {
           ? this.data.keyBoards[idx]
           : this.playersDetails[idx].keyboard;
 
-      this.playersRefs[idx] = new Player(
-        this,
-        this.playersDetails[idx].startLocation.x,
-        this.playersDetails[idx].startLocation.y,
-        keyBoard,
-        this.playersDetails[idx].angle,
-        idx + 1,
-        PLAYERS.COLORS[idx]
-      );
+      if (idx === 2 || idx === 0 || idx === 1 || idx === 3 ) {
+        this.playersRefs[idx] = new AiPlayer(
+          this,
+          this.playersDetails[idx].startLocation.x,
+          this.playersDetails[idx].startLocation.y,
+          this.playersDetails[idx].angle,
+          idx + 1,
+          PLAYERS.COLORS[idx]
+        );
+      } else {
+        this.playersRefs[idx] = new Player(
+          this,
+          this.playersDetails[idx].startLocation.x,
+          this.playersDetails[idx].startLocation.y,
+          keyBoard,
+          this.playersDetails[idx].angle,
+          idx + 1,
+          PLAYERS.COLORS[idx]
+        );
+      }
     });
   } else {
     //mobile
@@ -239,33 +250,6 @@ function _createPlayers(players) {
       }
     });
   }
-  // players.forEach((idx) => {
-  //   const keyBoard =
-  //     this.data && this.data.keyBoards
-  //       ? this.data.keyBoards[idx]
-  //       : this.playersDetails[idx].keyboard;
-
-  //   if (idx === 3) {
-  //     this.playersRefs[idx] = new AiPlayer(
-  //       this,
-  //       this.playersDetails[idx].startLocation.x,
-  //       this.playersDetails[idx].startLocation.y,
-  //       this.playersDetails[idx].angle,
-  //       idx + 1,
-  //       PLAYERS.COLORS[idx]
-  //     );
-  //   } else {
-  //     this.playersRefs[idx] = new Player(
-  //       this,
-  //       this.playersDetails[idx].startLocation.x,
-  //       this.playersDetails[idx].startLocation.y,
-  //       keyBoard,
-  //       this.playersDetails[idx].angle,
-  //       idx + 1,
-  //       PLAYERS.COLORS[idx]
-  //     );
-  //   }
-  // });
 }
 
 function _handleEndGame() {
